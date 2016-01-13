@@ -6,7 +6,7 @@ class Factorial{
 
 class Fac {
 
-    public stati int ComputeFac (int num){
+    public static int ComputeFac (int num){
         int num_aux ;
         a = bc;
         if (num < 1)

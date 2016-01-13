@@ -4,6 +4,10 @@ mac:
 	ghc -O2 -isrc -o bin/mac/miniJavac src/miniJavac.hs 
 	ghc -O2 -isrc -o bin/mac/miniJava  src/miniJava.hs 
 
+linux:
+	ghc -O2 -isrc -o bin/linux/miniJavac src/miniJavac.hs 
+	ghc -O2 -isrc -o bin/linux/miniJava  src/miniJava.hs 
+
 clean:
 	mv \
 		testcase/error/*.class       testcase/error/*.lisp       \
