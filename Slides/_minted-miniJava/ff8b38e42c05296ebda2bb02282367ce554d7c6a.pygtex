@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGdefault{k+kr}{data} \PYGdefault{k+kt}{AddExpr}   \PYGdefault{o+ow}{=} \PYGdefault{k+kt}{AMul} \PYGdefault{k+kt}{MulExpr}
+               \PYGdefault{o}{|} \PYGdefault{k+kt}{AddExpr} \PYGdefault{k+kt}{AddExpr} \PYGdefault{k+kt}{AddOp} \PYGdefault{k+kt}{MulExpr}
+
+\PYGdefault{n+nf}{addExpr} \PYGdefault{o+ow}{=} \PYGdefault{n}{lass} \PYGdefault{n}{mulExpr} \PYGdefault{n}{addOp} \PYGdefault{k+kt}{AMul} \PYGdefault{k+kt}{AddExpr}
+
+\PYGdefault{k+kr}{data} \PYGdefault{k+kt}{MulExpr}   \PYGdefault{o+ow}{=} \PYGdefault{k+kt}{AUnary} \PYGdefault{k+kt}{UnaryExpr}
+               \PYGdefault{o}{|} \PYGdefault{k+kt}{MulExpr} \PYGdefault{k+kt}{MulExpr} \PYGdefault{k+kt}{MulOp} \PYGdefault{k+kt}{UnaryExpr}
+
+\PYGdefault{n+nf}{mulExpr} \PYGdefault{o+ow}{=} \PYGdefault{n}{lass} \PYGdefault{n}{unaryExpr} \PYGdefault{n}{mulOp} \PYGdefault{k+kt}{AUnary} \PYGdefault{k+kt}{MulExpr}
+\end{Verbatim}

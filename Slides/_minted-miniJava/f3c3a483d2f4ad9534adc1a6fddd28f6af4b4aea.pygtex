@@ -1,0 +1,20 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGdefault{n+nf}{ghci}\PYGdefault{o}{\PYGdefaultZgt{}} \PYGdefault{n}{fst} \PYGdefault{o}{.} \PYGdefault{n}{head} \PYGdefault{o}{\PYGdefaultZdl{}} \PYGdefault{n}{apply} \PYGdefault{n}{addExpr} \PYGdefault{l+s}{\PYGdefaultZdq{}10 / 3 \PYGdefaultZhy{} 4 * 5 \PYGdefaultZpc{} 7\PYGdefaultZdq{}}
+\PYGdefault{p}{(}\PYGdefault{k+kt}{AddExpr}
+    \PYGdefault{p}{(}\PYGdefault{k+kt}{MulExpr}
+        \PYGdefault{p}{(}\PYGdefault{n}{int} \PYGdefault{l+m+mi}{10}\PYGdefault{p}{)}
+        \PYGdefault{p}{(}\PYGdefault{n}{op} \PYGdefault{l+s}{\PYGdefaultZdq{}/\PYGdefaultZdq{}}\PYGdefault{p}{)}
+        \PYGdefault{p}{(}\PYGdefault{n}{int} \PYGdefault{l+m+mi}{3}\PYGdefault{p}{)}
+    \PYGdefault{p}{)}
+    \PYGdefault{p}{(}\PYGdefault{n}{op} \PYGdefault{l+s}{\PYGdefaultZdq{}\PYGdefaultZhy{}\PYGdefaultZdq{}}\PYGdefault{p}{)}
+    \PYGdefault{p}{(}\PYGdefault{k+kt}{MulExpr}
+        \PYGdefault{p}{(}\PYGdefault{k+kt}{MulExpr}
+            \PYGdefault{p}{(}\PYGdefault{n}{int} \PYGdefault{l+m+mi}{4}\PYGdefault{p}{)}
+            \PYGdefault{p}{(}\PYGdefault{n}{op} \PYGdefault{l+s}{\PYGdefaultZdq{}*\PYGdefaultZdq{}}\PYGdefault{p}{)}
+            \PYGdefault{p}{(}\PYGdefault{n}{int} \PYGdefault{l+m+mi}{5}\PYGdefault{p}{)}
+        \PYGdefault{p}{)}
+        \PYGdefault{p}{(}\PYGdefault{n}{op} \PYGdefault{l+s}{\PYGdefaultZdq{}\PYGdefaultZpc{}\PYGdefaultZdq{}}\PYGdefault{p}{)}
+        \PYGdefault{p}{(}\PYGdefault{n}{int} \PYGdefault{l+m+mi}{7}\PYGdefault{p}{)}
+    \PYGdefault{p}{)}
+\PYGdefault{p}{)}
+\end{Verbatim}

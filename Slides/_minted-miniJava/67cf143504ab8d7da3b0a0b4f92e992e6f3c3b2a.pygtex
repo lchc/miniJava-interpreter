@@ -1,0 +1,20 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGdefault{n+nf}{addExpr} \PYGdefault{o+ow}{::} \PYGdefault{k+kt}{AddExpr} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{k+kt}{Interp} \PYGdefault{k+kt}{Int}
+\PYGdefault{n+nf}{addExpr} \PYGdefault{p}{(}\PYGdefault{k+kt}{AMul} \PYGdefault{n}{a}\PYGdefault{p}{)} \PYGdefault{o+ow}{=} \PYGdefault{n}{mulExpr} \PYGdefault{n}{a}
+\PYGdefault{n+nf}{addExpr} \PYGdefault{p}{(}\PYGdefault{k+kt}{AddExpr} \PYGdefault{n}{a} \PYGdefault{n}{b} \PYGdefault{n}{c}\PYGdefault{p}{)} \PYGdefault{o+ow}{=} \PYGdefault{k+kr}{do}
+    \PYGdefault{n}{i} \PYGdefault{o+ow}{\PYGdefaultZlt{}\PYGdefaultZhy{}} \PYGdefault{n}{addExpr} \PYGdefault{n}{a}
+    \PYGdefault{n}{j} \PYGdefault{o+ow}{\PYGdefaultZlt{}\PYGdefaultZhy{}} \PYGdefault{n}{mulExpr} \PYGdefault{n}{c}
+    \PYGdefault{k+kr}{case} \PYGdefault{n}{b} \PYGdefault{k+kr}{of}
+         \PYGdefault{k+kt}{Plus}  \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{n}{return} \PYGdefault{o}{\PYGdefaultZdl{}} \PYGdefault{n}{i} \PYGdefault{o}{+} \PYGdefault{n}{j}
+         \PYGdefault{k+kt}{Minus} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{n}{return} \PYGdefault{o}{\PYGdefaultZdl{}} \PYGdefault{n}{i} \PYGdefault{o}{\PYGdefaultZhy{}} \PYGdefault{n}{j}
+
+\PYGdefault{n+nf}{mulExpr} \PYGdefault{o+ow}{::} \PYGdefault{k+kt}{MulExpr} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{k+kt}{Interp} \PYGdefault{k+kt}{Int}
+\PYGdefault{n+nf}{mulExpr} \PYGdefault{p}{(}\PYGdefault{k+kt}{AUnary} \PYGdefault{n}{a}\PYGdefault{p}{)} \PYGdefault{o+ow}{=} \PYGdefault{n}{unaryExpr} \PYGdefault{n}{a}
+\PYGdefault{n+nf}{mulExpr} \PYGdefault{p}{(}\PYGdefault{k+kt}{MulExpr} \PYGdefault{n}{a} \PYGdefault{n}{b} \PYGdefault{n}{c}\PYGdefault{p}{)} \PYGdefault{o+ow}{=} \PYGdefault{k+kr}{do}
+    \PYGdefault{n}{i} \PYGdefault{o+ow}{\PYGdefaultZlt{}\PYGdefaultZhy{}} \PYGdefault{n}{mulExpr} \PYGdefault{n}{a}
+    \PYGdefault{n}{j} \PYGdefault{o+ow}{\PYGdefaultZlt{}\PYGdefaultZhy{}} \PYGdefault{n}{unaryExpr} \PYGdefault{n}{c}
+    \PYGdefault{k+kr}{case} \PYGdefault{n}{b} \PYGdefault{k+kr}{of}
+         \PYGdefault{k+kt}{Times}  \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{n}{return} \PYGdefault{o}{\PYGdefaultZdl{}} \PYGdefault{n}{i} \PYGdefault{o}{*} \PYGdefault{n}{j}
+         \PYGdefault{k+kt}{Slash}  \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{n}{return} \PYGdefault{o}{\PYGdefaultZdl{}} \PYGdefault{n}{i} \PYGdefault{p}{`}\PYGdefault{n}{div}\PYGdefault{p}{`} \PYGdefault{n}{j}
+         \PYGdefault{k+kt}{Modulo} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{n}{return} \PYGdefault{o}{\PYGdefaultZdl{}} \PYGdefault{n}{i} \PYGdefault{p}{`}\PYGdefault{n}{mod}\PYGdefault{p}{`} \PYGdefault{n}{j}
+\end{Verbatim}

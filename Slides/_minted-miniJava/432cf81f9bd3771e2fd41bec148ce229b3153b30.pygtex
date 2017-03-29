@@ -1,0 +1,22 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGdefault{n+nf}{asterisk} \PYGdefault{o+ow}{::} \PYGdefault{k+kt}{Parser} \PYGdefault{n}{a} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{k+kt}{Parser} \PYGdefault{p}{[}\PYGdefault{n}{a}\PYGdefault{p}{]}
+\PYGdefault{n+nf}{asterisk} \PYGdefault{n}{p} \PYGdefault{o+ow}{=} \PYGdefault{n}{plusSign} \PYGdefault{n}{p} \PYGdefault{o}{+++} \PYGdefault{n}{return} \PYGdefault{k+kt}{[]}
+
+\PYGdefault{n+nf}{plusSign} \PYGdefault{o+ow}{::} \PYGdefault{k+kt}{Parser} \PYGdefault{n}{a} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{k+kt}{Parser} \PYGdefault{p}{[}\PYGdefault{n}{a}\PYGdefault{p}{]}
+\PYGdefault{n+nf}{plusSign} \PYGdefault{n}{p} \PYGdefault{o+ow}{=} \PYGdefault{k+kr}{do} \PYGdefault{p}{\PYGdefaultZob{}} \PYGdefault{n}{x} \PYGdefault{o+ow}{\PYGdefaultZlt{}\PYGdefaultZhy{}} \PYGdefault{n}{p}\PYGdefault{p}{;} \PYGdefault{n}{xs} \PYGdefault{o+ow}{\PYGdefaultZlt{}\PYGdefaultZhy{}} \PYGdefault{n}{asterisk} \PYGdefault{n}{p}\PYGdefault{p}{;} \PYGdefault{n}{return} \PYGdefault{p}{(}\PYGdefault{n}{x}\PYGdefault{k+kt}{:}\PYGdefault{n}{xs}\PYGdefault{p}{)} \PYGdefault{p}{\PYGdefaultZcb{}}
+
+\PYGdefault{n+nf}{space} \PYGdefault{o+ow}{::} \PYGdefault{k+kt}{Parser} \PYGdefault{k+kt}{String}
+\PYGdefault{n+nf}{space} \PYGdefault{o+ow}{=} \PYGdefault{n}{sat\PYGdefaultZsq{}} \PYGdefault{k+kt}{Char}\PYGdefault{o}{.}\PYGdefault{n}{isSpace}
+
+\PYGdefault{n+nf}{comments} \PYGdefault{o+ow}{::} \PYGdefault{k+kt}{Parser} \PYGdefault{k+kt}{String}
+\PYGdefault{n+nf}{comments} \PYGdefault{o+ow}{=} \PYGdefault{p}{(}\PYGdefault{n}{string} \PYGdefault{l+s}{\PYGdefaultZdq{}/*\PYGdefaultZdq{}} \PYGdefault{o}{\PYGdefaultZgt{}\PYGdefaultZgt{}} \PYGdefault{n}{next} \PYGdefault{l+s}{\PYGdefaultZdq{}*/\PYGdefaultZdq{}}\PYGdefault{p}{)} \PYGdefault{o}{+++} \PYGdefault{p}{(}\PYGdefault{n}{string} \PYGdefault{l+s}{\PYGdefaultZdq{}//\PYGdefaultZdq{}} \PYGdefault{o}{\PYGdefaultZgt{}\PYGdefaultZgt{}} \PYGdefault{n}{next} \PYGdefault{l+s}{\PYGdefaultZdq{}}\PYGdefault{l+s+se}{\PYGdefaultZbs{}n}\PYGdefault{l+s}{\PYGdefaultZdq{}}\PYGdefault{p}{)}
+
+\PYGdefault{n+nf}{white} \PYGdefault{o+ow}{::} \PYGdefault{k+kt}{Parser} \PYGdefault{k+kt}{String}
+\PYGdefault{n+nf}{white} \PYGdefault{o+ow}{=} \PYGdefault{n}{asterisk} \PYGdefault{p}{(}\PYGdefault{n}{space} \PYGdefault{o}{+++} \PYGdefault{n}{comments}\PYGdefault{p}{)} \PYGdefault{o}{\PYGdefaultZgt{}\PYGdefaultZgt{}=} \PYGdefault{n}{return} \PYGdefault{o}{.} \PYGdefault{n}{concat}
+
+\PYGdefault{n+nf}{token} \PYGdefault{o+ow}{::} \PYGdefault{k+kt}{Parser} \PYGdefault{n}{a} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{k+kt}{Parser} \PYGdefault{n}{a}
+\PYGdefault{n+nf}{token} \PYGdefault{n}{p} \PYGdefault{o+ow}{=} \PYGdefault{k+kr}{do} \PYGdefault{p}{\PYGdefaultZob{}} \PYGdefault{n}{a} \PYGdefault{o+ow}{\PYGdefaultZlt{}\PYGdefaultZhy{}} \PYGdefault{n}{p}\PYGdefault{p}{;} \PYGdefault{n}{white}\PYGdefault{p}{;} \PYGdefault{n}{return} \PYGdefault{n}{a} \PYGdefault{p}{\PYGdefaultZcb{}}
+
+\PYGdefault{n+nf}{apply} \PYGdefault{o+ow}{::} \PYGdefault{k+kt}{Parser} \PYGdefault{n}{a} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{k+kt}{String} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{p}{[(}\PYGdefault{n}{a}\PYGdefault{p}{,}\PYGdefault{k+kt}{String}\PYGdefault{p}{)]}
+\PYGdefault{n+nf}{apply} \PYGdefault{n}{p} \PYGdefault{o+ow}{=} \PYGdefault{n}{parse} \PYGdefault{p}{(}\PYGdefault{n}{white} \PYGdefault{o}{\PYGdefaultZgt{}\PYGdefaultZgt{}} \PYGdefault{n}{p}\PYGdefault{p}{)}
+\end{Verbatim}

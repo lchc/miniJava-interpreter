@@ -1,0 +1,350 @@
+\def\pgfsysdriver{pgfsys-dvipdfm.def}
+\pdfpagewidth=\paperwidth
+\pdfpageheight=\paperheight
+
+\documentclass[12pt]{beamer}
+\usetheme{Warsaw}
+
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{indentfirst}
+\usepackage[export]{adjustbox}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{setspace}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{pgfpages}
+\usepackage{amsmath}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{xeCJK}
+\usepackage{minted}
+%\usemintedstyle{fruity}
+\usepackage[backend=biber]{biblatex}
+%\usecolortheme{albatross}
+
+\setbeamertemplate{footline}{}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{navigation symbols}{}
+%\setbeameroption{show notes on second screen=right}
+\setbeamertemplate{note page}[plain]
+
+\addtobeamertemplate{frametitle}{\vspace*{-5pt}}{\vspace*{0pt}}
+
+\renewcommand*{\thefootnote}{[\arabic{footnote}]}
+
+\usefonttheme{professionalfonts}
+
+\setsansfont{Open Sans}[Scale=0.8]
+\setCJKsansfont[Scale=0.8]{WenQuanYi Micro Hei}
+
+%\setbeamerfont{block body}{ size={\fontsize{10}{10}} }
+%\setbeamerfont{title}{ size={\fontsize{20}{20}} }
+%\setbeamerfont{date}{ size={\fontsize{20}{20}} }
+%\setbeamerfont{note page}{	size={\fontsize{14}{14}} }
+%\setbeamerfont{note title}{ size = {\fontsize{12}{12}} }
+%\setbeamerfont{institute}{ size={\fontsize{7}{7}} }
+\setbeamerfont{footnote}{ size={\fontsize{9}{9}} }
+%\setbeamerfont{footline}{ size={\fontsize{7}{7}} }
+
+\newcommand{\codesize}{\fontsize{7.7}{7.7}}
+
+\newcommand{\insfig}[2][1]{
+	\begin{figure}
+		\includegraphics[width=#1\textwidth]{#2.pdf}
+	\end{figure}
+}
+\newcommand{\hs}[1]{
+	\begin{minted}[fontsize=\tiny]{haskell}
+	#1
+	\end{minted}
+}
+
+\title{A Monadic Parser and Interpreter for MiniJava Language}
+\author{\quad\\ Huan Li\inst{1}}
+
+\date{} %\quad x \vspace{-50pt}}
+
+\institute{
+	\inst{1}
+	School of Computer Science\\
+	Fudan University \\
+	huanli16@fudan.edu.cn
+}
+
+\begin{document}
+
+\begin{spacing}{1.3}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}{Project Overview}
+\begin{itemize}
+\item MiniJava language
+	\begin{itemize}
+		\item A subset of Java
+		\item Can be compiled by a regular Java compiler
+		\item Basic features
+			\begin{itemize}
+				\item Variables declaration/assignment
+				\item Arithmetic/Boolean operation
+				\item If, while, recursion, functions invoking each other
+				%\item Object-oriented feature not included
+			\end{itemize}
+	\end{itemize}
+\item Components
+	\begin{itemize}
+	\item Parser\footnote[frame]{Graham Hutton, Erik Meijer. Monadic parsing in Haskell. Journal of functional programming, 1998, 8(04): 437-444.\vspace{1pt}}
+	\item Interpreter
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile=singleslide]{The Type Parser}
+
+\begin{minted}[fontsize=\codesize]{haskell}
+newtype Parser a = Parser { parse :: String -> [(a,String)] }
+
+instance Monad Parser where
+    return a = Parser ( \cs -> [(a,cs)] )
+    p >>= f = Parser ( \cs -> do { (a,cs') <- parse p cs; parse (f a) cs' } )
+
+(+++) :: Parser a -> Parser a -> Parser a
+p +++ q = Parser (\cs -> case parse p cs ++ parse q cs of
+                 [] -> []
+                 x:xs -> [x] )
+
+zero :: Parser a
+zero = Parser ( \cs -> [] )
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile=singleslide]{Combinators - Char and String}
+
+\begin{minted}[fontsize=\codesize]{haskell}
+item :: Parser Char
+item = Parser f
+    where f [] = []
+          f (c:cs) = [(c,cs)]
+
+sat :: (Char -> Bool) -> Parser Char
+sat p = do { c <- item; if p c then return c else zero }
+
+sat' :: (Char -> Bool) -> Parser String
+sat' p = do { x <- sat p; return [x] }
+
+char :: Char -> Parser Char
+char c = sat (c==)
+
+string :: String -> Parser String
+string "" = return ""
+string (c:cs) = char c >> string cs >> return (c:cs)
+
+next :: String -> Parser String
+next cs = string cs +++ (item >> next cs)
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile=singleslide]{Combinators - Applying a Parser}
+
+\begin{minted}[fontsize=\codesize]{haskell}
+asterisk :: Parser a -> Parser [a]
+asterisk p = plusSign p +++ return []
+
+plusSign :: Parser a -> Parser [a]
+plusSign p = do { x <- p; xs <- asterisk p; return (x:xs) }
+
+space :: Parser String
+space = sat' Char.isSpace
+
+comments :: Parser String
+comments = (string "/*" >> next "*/") +++ (string "//" >> next "\n")
+
+white :: Parser String
+white = asterisk (space +++ comments) >>= return . concat
+
+token :: Parser a -> Parser a
+token p = do { a <- p; white; return a }
+
+apply :: Parser a -> String -> [(a,String)]
+apply p = parse (white >> p)
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile=singleslide]{Combinators - Parsing Sequence}
+\begin{minted}[fontsize=\codesize]{haskell}
+
+-- ( (a op a) op a ) op a
+lass :: Parser a -> Parser op -> (a -> b) -> (b -> op -> a -> b) -> Parser b
+lass           a           op     single     cons      = a >>= rest . single
+    where rest x = ( do
+                   y <- op
+                   z <- a
+                   rest $ cons x y z ) +++ return x
+
+-- a op ( a op (a op a) )
+rass :: Parser a -> Parser op -> (a -> b) -> (a -> op -> b -> b) -> Parser b
+rass           a           op     single     cons      = a >>= rest
+    where rest x = ( do
+                   y <- op
+                   z <- a
+                   r <- rest z
+                   return $ (cons x y r) ) +++ return (single x)
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile=singleslide]{Parsing Arithmetic Expressions - Operators}
+\begin{minted}[fontsize=\codesize]{haskell}
+data AddOp    = Plus | Minus
+
+plus     = token $ string "+"  >> return Plus
+minus    = token $ string "-"  >> return Minus
+addOp    = plus +++ minus
+
+data MulOp    = Times | Slash | Modulo
+
+times    = token $ string "*"  >> return Times
+slash    = token $ string "/"  >> return Slash
+modulo   = token $ string "%"  >> return Modulo
+mulOp    = times +++ slash +++ modulo
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile=singleslide]{Parsing Arithmetic Expressions - Expressions}
+\begin{minted}[fontsize=\codesize]{haskell}
+data AddExpr   = AMul MulExpr
+               | AddExpr AddExpr AddOp MulExpr
+
+addExpr = lass mulExpr addOp AMul AddExpr
+
+data MulExpr   = AUnary UnaryExpr
+               | MulExpr MulExpr MulOp UnaryExpr
+
+mulExpr = lass unaryExpr mulOp AUnary MulExpr
+\end{minted}
+\end{frame}
+
+%data BasicExpr = Bool Bool | Int Int | Nul | ...
+
+%int = token $ plusSign (sat Char.isDigit) >>= return . Int . read
+
+\begin{frame}[fragile=singleslide]{Parsing Arithmetic Expressions - An Example}
+\begin{block}{Terminal}
+\begin{minted}[fontsize=\codesize]{haskell}
+ghci> fst . head $ apply addExpr "10 / 3 - 4 * 5 % 7"
+(AddExpr
+    (MulExpr
+        (int 10)
+        (op "/")
+        (int 3)
+    )
+    (op "-")
+    (MulExpr
+        (MulExpr
+            (int 4)
+            (op "*")
+            (int 5)
+        )
+        (op "%")
+        (int 7)
+    )
+)
+\end{minted}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile=singleslide]{The Type Interp}
+\begin{minted}[fontsize=\codesize]{haskell}
+newtype Env = Env (Map.Map Ident Int, Map.Map Ident Func)
+
+newtype Interp a = Interp {
+    interp :: [Env] -> String -> Either (a,[Env],String) (Int,[Env],String) }
+
+instance Monad Interp where
+    return a = Interp ( \es0 cs0 -> Left (a,es0,cs0) )
+    i >>= h = Interp ( \es0 cs0 -> case interp i es0 cs0 of
+                                       Left  (a,es,cs) -> interp (h a) es cs
+                                       Right (a,es,cs) -> Right  (a,es,cs) )
+                                       
+return_ :: Int -> Interp a
+return_ a = Interp ( \es cs -> Right (a,es,cs) )
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile=singleslide]{Interpreting Arithmetic Expressions}
+\begin{minted}[fontsize=\codesize]{haskell}
+addExpr :: AddExpr -> Interp Int
+addExpr (AMul a) = mulExpr a
+addExpr (AddExpr a b c) = do
+    i <- addExpr a
+    j <- mulExpr c
+    case b of
+         Plus  -> return $ i + j
+         Minus -> return $ i - j
+
+mulExpr :: MulExpr -> Interp Int
+mulExpr (AUnary a) = unaryExpr a
+mulExpr (MulExpr a b c) = do
+    i <- mulExpr a
+    j <- unaryExpr c
+    case b of
+         Times  -> return $ i * j
+         Slash  -> return $ i `div` j
+         Modulo -> return $ i `mod` j
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile=singleslide]{Interpreting Functions}
+\begin{minted}[fontsize=\codesize]{haskell}
+data Func = Funci { funci :: Interp Int }
+          | Funcf { funcf :: Int -> Interp Func }
+
+env1 = Env (Map.empty,Map.empty) :: Env
+
+closure :: Interp Int -> Interp Int
+closure i = Interp ( \(e0:es0) cs0 -> case interp i (env1:es0) cs0 of
+                                   Right (a,e:es,cs) -> Left (a,e0:es,cs)
+                                   Left  (a,e:es,cs) -> Left (a,e0:es,cs) )
+                  
+valf :: Ident -> Interp Func
+
+apply :: [Int] -> Interp Func -> Interp Int
+
+invoke :: [Int] -> Ident -> Interp Int
+invoke xs id = closure . apply xs . valf $ id
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile=singleslide]{Interpreting the Whole Program}
+\begin{minted}[fontsize=\codesize]{haskell}
+env1 = Env (Map.empty,Map.empty) :: Env
+
+pushe :: Interp Int
+pushe = Interp ( \es cs -> Left (0, env1:es, cs) )
+
+eval :: Program -> Interp Int
+eval (Program [ClassDecl a b c d es f] EOF) = h
+    where h = pushe >> methods es >> pushe >> invoke [] (Ident "main")
+              where methods ...
+
+execute :: Program -> String
+execute p = case interp (eval p) [] "" of
+                 Left  (a,_,cs) -> cs
+\end{minted}
+\end{frame}
+
+\end{spacing}
+\end{document}
+
+func :: Maybe Paras -> Block -> Func
+func aa b =
+    case aa of
+         Nothing -> Funci $ block b
+         Just (APara (Para _ id)) -> Funcf $ \x -> (exti id x) >> h
+             where h = return $ func Nothing b
+         Just (Paras (Para _ id) _ p) -> Funcf $ \x -> (exti id x) >> h
+             where h = return $ func (Just p) b

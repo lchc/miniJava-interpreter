@@ -1,0 +1,16 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGdefault{k+kr}{newtype} \PYGdefault{k+kt}{Parser} \PYGdefault{n}{a} \PYGdefault{o+ow}{=} \PYGdefault{k+kt}{Parser} \PYGdefault{p}{\PYGdefaultZob{}} \PYGdefault{n}{parse} \PYGdefault{o+ow}{::} \PYGdefault{k+kt}{String} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{p}{[(}\PYGdefault{n}{a}\PYGdefault{p}{,}\PYGdefault{k+kt}{String}\PYGdefault{p}{)]} \PYGdefault{p}{\PYGdefaultZcb{}}
+
+\PYGdefault{k+kr}{instance} \PYGdefault{k+kt}{Monad} \PYGdefault{k+kt}{Parser} \PYGdefault{k+kr}{where}
+    \PYGdefault{n}{return} \PYGdefault{n}{a} \PYGdefault{o+ow}{=} \PYGdefault{k+kt}{Parser} \PYGdefault{p}{(} \PYGdefault{n+nf}{\PYGdefaultZbs{}}\PYGdefault{n}{cs} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{p}{[(}\PYGdefault{n}{a}\PYGdefault{p}{,}\PYGdefault{n}{cs}\PYGdefault{p}{)]} \PYGdefault{p}{)}
+    \PYGdefault{n}{p} \PYGdefault{o}{\PYGdefaultZgt{}\PYGdefaultZgt{}=} \PYGdefault{n}{f} \PYGdefault{o+ow}{=} \PYGdefault{k+kt}{Parser} \PYGdefault{p}{(} \PYGdefault{n+nf}{\PYGdefaultZbs{}}\PYGdefault{n}{cs} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{k+kr}{do} \PYGdefault{p}{\PYGdefaultZob{}} \PYGdefault{p}{(}\PYGdefault{n}{a}\PYGdefault{p}{,}\PYGdefault{n}{cs\PYGdefaultZsq{}}\PYGdefault{p}{)} \PYGdefault{o+ow}{\PYGdefaultZlt{}\PYGdefaultZhy{}} \PYGdefault{n}{parse} \PYGdefault{n}{p} \PYGdefault{n}{cs}\PYGdefault{p}{;} \PYGdefault{n}{parse} \PYGdefault{p}{(}\PYGdefault{n}{f} \PYGdefault{n}{a}\PYGdefault{p}{)} \PYGdefault{n}{cs\PYGdefaultZsq{}} \PYGdefault{p}{\PYGdefaultZcb{}} \PYGdefault{p}{)}
+
+\PYGdefault{p}{(}\PYGdefault{o}{+++}\PYGdefault{p}{)} \PYGdefault{o+ow}{::} \PYGdefault{k+kt}{Parser} \PYGdefault{n}{a} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{k+kt}{Parser} \PYGdefault{n}{a} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{k+kt}{Parser} \PYGdefault{n}{a}
+\PYGdefault{n+nf}{p} \PYGdefault{o}{+++} \PYGdefault{n}{q} \PYGdefault{o+ow}{=} \PYGdefault{k+kt}{Parser} \PYGdefault{p}{(}\PYGdefault{n+nf}{\PYGdefaultZbs{}}\PYGdefault{n}{cs} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{k+kr}{case} \PYGdefault{n}{parse} \PYGdefault{n}{p} \PYGdefault{n}{cs} \PYGdefault{o}{++} \PYGdefault{n}{parse} \PYGdefault{n}{q} \PYGdefault{n}{cs} \PYGdefault{k+kr}{of}
+                 \PYGdefault{k+kt}{[]} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{k+kt}{[]}
+                 \PYGdefault{n}{x}\PYGdefault{k+kt}{:}\PYGdefault{n}{xs} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{p}{[}\PYGdefault{n}{x}\PYGdefault{p}{]}
+                 \PYGdefault{p}{)}
+
+\PYGdefault{n+nf}{zero} \PYGdefault{o+ow}{::} \PYGdefault{k+kt}{Parser} \PYGdefault{n}{a}
+\PYGdefault{n+nf}{zero} \PYGdefault{o+ow}{=} \PYGdefault{k+kt}{Parser} \PYGdefault{p}{(} \PYGdefault{n+nf}{\PYGdefaultZbs{}}\PYGdefault{n}{cs} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{k+kt}{[]} \PYGdefault{p}{)}
+\end{Verbatim}

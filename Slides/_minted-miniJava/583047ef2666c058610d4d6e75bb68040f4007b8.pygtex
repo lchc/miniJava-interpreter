@@ -1,0 +1,18 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGdefault{c+c1}{\PYGdefaultZhy{}\PYGdefaultZhy{} ( (a op a) op a ) op a}
+\PYGdefault{n+nf}{lass} \PYGdefault{o+ow}{::} \PYGdefault{k+kt}{Parser} \PYGdefault{n}{a} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{k+kt}{Parser} \PYGdefault{n}{op} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{p}{(}\PYGdefault{n}{a} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{n}{b}\PYGdefault{p}{)} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{p}{(}\PYGdefault{n}{b} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{n}{op} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{n}{a} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{n}{b}\PYGdefault{p}{)} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{k+kt}{Parser} \PYGdefault{n}{b}
+\PYGdefault{n+nf}{lass}           \PYGdefault{n}{a}           \PYGdefault{n}{op}     \PYGdefault{n}{single}     \PYGdefault{n}{cons}      \PYGdefault{o+ow}{=} \PYGdefault{n}{a} \PYGdefault{o}{\PYGdefaultZgt{}\PYGdefaultZgt{}=} \PYGdefault{n}{rest} \PYGdefault{o}{.} \PYGdefault{n}{single}
+    \PYGdefault{k+kr}{where} \PYGdefault{n}{rest} \PYGdefault{n}{x} \PYGdefault{o+ow}{=} \PYGdefault{p}{(} \PYGdefault{k+kr}{do}
+                   \PYGdefault{n}{y} \PYGdefault{o+ow}{\PYGdefaultZlt{}\PYGdefaultZhy{}} \PYGdefault{n}{op}
+                   \PYGdefault{n}{z} \PYGdefault{o+ow}{\PYGdefaultZlt{}\PYGdefaultZhy{}} \PYGdefault{n}{a}
+                   \PYGdefault{n}{rest} \PYGdefault{o}{\PYGdefaultZdl{}} \PYGdefault{n}{cons} \PYGdefault{n}{x} \PYGdefault{n}{y} \PYGdefault{n}{z} \PYGdefault{p}{)} \PYGdefault{o}{+++} \PYGdefault{n}{return} \PYGdefault{n}{x}
+
+\PYGdefault{c+c1}{\PYGdefaultZhy{}\PYGdefaultZhy{} a op ( a op (a op a) )}
+\PYGdefault{n+nf}{rass} \PYGdefault{o+ow}{::} \PYGdefault{k+kt}{Parser} \PYGdefault{n}{a} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{k+kt}{Parser} \PYGdefault{n}{op} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{p}{(}\PYGdefault{n}{a} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{n}{b}\PYGdefault{p}{)} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{p}{(}\PYGdefault{n}{a} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{n}{op} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{n}{b} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{n}{b}\PYGdefault{p}{)} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{k+kt}{Parser} \PYGdefault{n}{b}
+\PYGdefault{n+nf}{rass}           \PYGdefault{n}{a}           \PYGdefault{n}{op}     \PYGdefault{n}{single}     \PYGdefault{n}{cons}      \PYGdefault{o+ow}{=} \PYGdefault{n}{a} \PYGdefault{o}{\PYGdefaultZgt{}\PYGdefaultZgt{}=} \PYGdefault{n}{rest}
+    \PYGdefault{k+kr}{where} \PYGdefault{n}{rest} \PYGdefault{n}{x} \PYGdefault{o+ow}{=} \PYGdefault{p}{(} \PYGdefault{k+kr}{do}
+                   \PYGdefault{n}{y} \PYGdefault{o+ow}{\PYGdefaultZlt{}\PYGdefaultZhy{}} \PYGdefault{n}{op}
+                   \PYGdefault{n}{z} \PYGdefault{o+ow}{\PYGdefaultZlt{}\PYGdefaultZhy{}} \PYGdefault{n}{a}
+                   \PYGdefault{n}{r} \PYGdefault{o+ow}{\PYGdefaultZlt{}\PYGdefaultZhy{}} \PYGdefault{n}{rest} \PYGdefault{n}{z}
+                   \PYGdefault{n}{return} \PYGdefault{o}{\PYGdefaultZdl{}} \PYGdefault{p}{(}\PYGdefault{n}{cons} \PYGdefault{n}{x} \PYGdefault{n}{y} \PYGdefault{n}{r}\PYGdefault{p}{)} \PYGdefault{p}{)} \PYGdefault{o}{+++} \PYGdefault{n}{return} \PYGdefault{p}{(}\PYGdefault{n}{single} \PYGdefault{n}{x}\PYGdefault{p}{)}
+\end{Verbatim}

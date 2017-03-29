@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGdefault{n+nf}{env1} \PYGdefault{o+ow}{=} \PYGdefault{k+kt}{Env} \PYGdefault{p}{(}\PYGdefault{k+kt}{Map}\PYGdefault{o}{.}\PYGdefault{n}{empty}\PYGdefault{p}{,}\PYGdefault{k+kt}{Map}\PYGdefault{o}{.}\PYGdefault{n}{empty}\PYGdefault{p}{)} \PYGdefault{o+ow}{::} \PYGdefault{k+kt}{Env}
+
+\PYGdefault{n+nf}{pushe} \PYGdefault{o+ow}{::} \PYGdefault{k+kt}{Interp} \PYGdefault{k+kt}{Int}
+\PYGdefault{n+nf}{pushe} \PYGdefault{o+ow}{=} \PYGdefault{k+kt}{Interp} \PYGdefault{p}{(} \PYGdefault{n+nf}{\PYGdefaultZbs{}}\PYGdefault{n}{es} \PYGdefault{n}{cs} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{k+kt}{Left} \PYGdefault{p}{(}\PYGdefault{l+m+mi}{0}\PYGdefault{p}{,} \PYGdefault{n}{env1}\PYGdefault{k+kt}{:}\PYGdefault{n}{es}\PYGdefault{p}{,} \PYGdefault{n}{cs}\PYGdefault{p}{)} \PYGdefault{p}{)}
+
+\PYGdefault{n+nf}{eval} \PYGdefault{o+ow}{::} \PYGdefault{k+kt}{Program} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{k+kt}{Interp} \PYGdefault{k+kt}{Int}
+\PYGdefault{n+nf}{eval} \PYGdefault{p}{(}\PYGdefault{k+kt}{Program} \PYGdefault{p}{[}\PYGdefault{k+kt}{ClassDecl} \PYGdefault{n}{a} \PYGdefault{n}{b} \PYGdefault{n}{c} \PYGdefault{n}{d} \PYGdefault{n}{es} \PYGdefault{n}{f}\PYGdefault{p}{]} \PYGdefault{k+kt}{EOF}\PYGdefault{p}{)} \PYGdefault{o+ow}{=} \PYGdefault{n}{h}
+    \PYGdefault{k+kr}{where} \PYGdefault{n}{h} \PYGdefault{o+ow}{=} \PYGdefault{n}{pushe} \PYGdefault{o}{\PYGdefaultZgt{}\PYGdefaultZgt{}} \PYGdefault{n}{methods} \PYGdefault{n}{es} \PYGdefault{o}{\PYGdefaultZgt{}\PYGdefaultZgt{}} \PYGdefault{n}{pushe} \PYGdefault{o}{\PYGdefaultZgt{}\PYGdefaultZgt{}} \PYGdefault{n}{invoke} \PYGdefault{k+kt}{[]} \PYGdefault{p}{(}\PYGdefault{k+kt}{Ident} \PYGdefault{l+s}{\PYGdefaultZdq{}main\PYGdefaultZdq{}}\PYGdefault{p}{)}
+              \PYGdefault{k+kr}{where} \PYGdefault{n}{methods} \PYGdefault{o}{...}
+
+\PYGdefault{n+nf}{execute} \PYGdefault{o+ow}{::} \PYGdefault{k+kt}{Program} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{k+kt}{String}
+\PYGdefault{n+nf}{execute} \PYGdefault{n}{p} \PYGdefault{o+ow}{=} \PYGdefault{k+kr}{case} \PYGdefault{n}{interp} \PYGdefault{p}{(}\PYGdefault{n}{eval} \PYGdefault{n}{p}\PYGdefault{p}{)} \PYGdefault{k+kt}{[]} \PYGdefault{l+s}{\PYGdefaultZdq{}\PYGdefaultZdq{}} \PYGdefault{k+kr}{of}
+                 \PYGdefault{k+kt}{Left}  \PYGdefault{p}{(}\PYGdefault{n}{a}\PYGdefault{p}{,}\PYGdefault{k+kr}{\PYGdefaultZus{}}\PYGdefault{p}{,}\PYGdefault{n}{cs}\PYGdefault{p}{)} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{n}{cs}
+\end{Verbatim}

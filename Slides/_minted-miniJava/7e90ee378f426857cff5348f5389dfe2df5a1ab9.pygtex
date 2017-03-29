@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGdefault{k+kr}{data} \PYGdefault{k+kt}{AddOp}    \PYGdefault{o+ow}{=} \PYGdefault{k+kt}{Plus} \PYGdefault{o}{|} \PYGdefault{k+kt}{Minus}
+
+\PYGdefault{n+nf}{plus}     \PYGdefault{o+ow}{=} \PYGdefault{n}{token} \PYGdefault{o}{\PYGdefaultZdl{}} \PYGdefault{n}{string} \PYGdefault{l+s}{\PYGdefaultZdq{}+\PYGdefaultZdq{}}  \PYGdefault{o}{\PYGdefaultZgt{}\PYGdefaultZgt{}} \PYGdefault{n}{return} \PYGdefault{k+kt}{Plus}
+\PYGdefault{n+nf}{minus}    \PYGdefault{o+ow}{=} \PYGdefault{n}{token} \PYGdefault{o}{\PYGdefaultZdl{}} \PYGdefault{n}{string} \PYGdefault{l+s}{\PYGdefaultZdq{}\PYGdefaultZhy{}\PYGdefaultZdq{}}  \PYGdefault{o}{\PYGdefaultZgt{}\PYGdefaultZgt{}} \PYGdefault{n}{return} \PYGdefault{k+kt}{Minus}
+\PYGdefault{n+nf}{addOp}    \PYGdefault{o+ow}{=} \PYGdefault{n}{plus} \PYGdefault{o}{+++} \PYGdefault{n}{minus}
+
+\PYGdefault{k+kr}{data} \PYGdefault{k+kt}{MulOp}    \PYGdefault{o+ow}{=} \PYGdefault{k+kt}{Times} \PYGdefault{o}{|} \PYGdefault{k+kt}{Slash} \PYGdefault{o}{|} \PYGdefault{k+kt}{Modulo}
+
+\PYGdefault{n+nf}{times}    \PYGdefault{o+ow}{=} \PYGdefault{n}{token} \PYGdefault{o}{\PYGdefaultZdl{}} \PYGdefault{n}{string} \PYGdefault{l+s}{\PYGdefaultZdq{}*\PYGdefaultZdq{}}  \PYGdefault{o}{\PYGdefaultZgt{}\PYGdefaultZgt{}} \PYGdefault{n}{return} \PYGdefault{k+kt}{Times}
+\PYGdefault{n+nf}{slash}    \PYGdefault{o+ow}{=} \PYGdefault{n}{token} \PYGdefault{o}{\PYGdefaultZdl{}} \PYGdefault{n}{string} \PYGdefault{l+s}{\PYGdefaultZdq{}/\PYGdefaultZdq{}}  \PYGdefault{o}{\PYGdefaultZgt{}\PYGdefaultZgt{}} \PYGdefault{n}{return} \PYGdefault{k+kt}{Slash}
+\PYGdefault{n+nf}{modulo}   \PYGdefault{o+ow}{=} \PYGdefault{n}{token} \PYGdefault{o}{\PYGdefaultZdl{}} \PYGdefault{n}{string} \PYGdefault{l+s}{\PYGdefaultZdq{}\PYGdefaultZpc{}\PYGdefaultZdq{}}  \PYGdefault{o}{\PYGdefaultZgt{}\PYGdefaultZgt{}} \PYGdefault{n}{return} \PYGdefault{k+kt}{Modulo}
+\PYGdefault{n+nf}{mulOp}    \PYGdefault{o+ow}{=} \PYGdefault{n}{times} \PYGdefault{o}{+++} \PYGdefault{n}{slash} \PYGdefault{o}{+++} \PYGdefault{n}{modulo}
+\end{Verbatim}
