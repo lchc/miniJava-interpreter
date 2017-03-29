@@ -36,4 +36,4 @@ Run `miniJavac` with an argument which is the name of the source file.
 
 Run `miniJava` with an argument which is the name of the source file.
 
-There are test codes under directory `testcase’
+There are test codes under directory `testcase`
